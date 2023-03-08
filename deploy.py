@@ -14,7 +14,7 @@ pt.pytesseract.tesseract_cmd = r"C:\Program Files\tesseract\build\bin\Debug\tess
 INPUT_WIDTH =  640
 INPUT_HEIGHT = 640
 # LOAD YOLO MODEL
-net = cv2.dnn.readNetFromONNX('./Model2/weights/best.onnx')
+net = cv2.dnn.readNetFromONNX('./Model5/weights/best.onnx')
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 
@@ -80,7 +80,7 @@ def drawings(image,boxes_np,confidences_np,index):
         bb_conf = confidences_np[ind]
         conf_text = 'plate: {:.0f}%'.format(bb_conf*100)
         license_text = extract_text(image,boxes_np[ind])
-        clean_text = re.findall(r'[A-Z0-9]+', license_text)
+        clean_text = ''.join(re.findall(r'[A-Z0-9]+', license_text))
         results_dict = {}
         results_dict['text'] = clean_text
         #Convert the dictionary to JSON format
@@ -120,5 +120,5 @@ def extract_text(image,bbox):
         text = text.strip()
         
         return text
-img = io.imread('./TEST/Datacluster_number_plates (16).jpg')
+img = io.imread('./TEST/JRK5336.jpeg')
 results = yolo_predictions(img,net)    
