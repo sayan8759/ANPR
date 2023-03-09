@@ -1,6 +1,7 @@
 import cv2
 import json
-from deeplearning import yolo_predictions
+from deeplearning import yolo_predictions,net
+
 cap = cv2.VideoCapture('./TEST/TEST.mov')
 
 output_list = []
@@ -13,7 +14,7 @@ while True:
         break
 
     results = yolo_predictions(frame,net)
-    results_list = results.tolist()
+    results_list = list(results)
     # Append the predictions to the output_list
     output_list.append(results_list)
 

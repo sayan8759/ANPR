@@ -99,6 +99,10 @@ def yolo_predictions(img,net):
     # step-3: Drawings
     result_img = drawings(img,boxes_np,confidences_np,index)
     return result_img
+def generateConfidence(img,net):
+    input_image,detections = get_detections(img,net)
+    boxes,confidences,index = non_maximum_supression(input_image,detections)
+    return confidences
 # extrating text
 def extract_text(image,bbox):
     x,y,w,h = bbox
